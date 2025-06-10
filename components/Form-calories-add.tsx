@@ -34,7 +34,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
     defaultValues: {
       item: '',
       amount: "0",
-      created_at: new Date(`${selectedDate}`) || new Date(),
+      created_at: selectedDate ? new Date(`${selectedDate}`) : new Date(),
     },
   });
 
@@ -50,7 +50,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
       form.reset({
         item: "",
         amount: "0",
-        created_at: new Date(`${selectedDate}`) || new Date(),
+        created_at: selectedDate ? new Date(`${selectedDate}`) : new Date(),
       });
     }
 
