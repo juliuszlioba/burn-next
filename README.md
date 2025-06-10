@@ -1,4 +1,4 @@
-# TankAndRide
+# Calories Burn
 
 Small website project to track calorie inteke
 
