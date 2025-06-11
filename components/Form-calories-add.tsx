@@ -21,7 +21,7 @@ export const addFormSchema = z.object({
     message: 'Min 2 char',
   }),
   amount: z.string(),
-  created_at: z.date(),
+  created_at: z.string(),
 });
 
 export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
@@ -34,7 +34,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
     defaultValues: {
       item: '',
       amount: "0",
-      created_at: selectedDate ? new Date(`${selectedDate}`) : new Date(),
+      created_at: selectedDate ? new Date(`${selectedDate}`).toISOString() : new Date().toISOString(),
     },
   });
 
@@ -50,7 +50,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
       form.reset({
         item: "",
         amount: "0",
-        created_at: selectedDate ? new Date(`${selectedDate}`) : new Date(),
+        created_at: selectedDate ? new Date(`${selectedDate}`).toISOString() : new Date().toISOString(),
       });
     }
 
@@ -64,7 +64,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
           control={form.control}
           name="item"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-3/6">
               <FormControl>
                 <Input placeholder="item" className="h-12" {...field} />
               </FormControl>
@@ -76,7 +76,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
           control={form.control}
           name="amount"
           render={({ field }) => (
-            <FormItem className="w-1/3">
+            <FormItem className="w-2/6">
               <FormControl>
                 <Input type="number" placeholder="amount" className="h-12" {...field} />
               </FormControl>
@@ -86,7 +86,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
         />
         <FormField
           control={form.control}
-          name="amount"
+          name="created_at"
           render={({ field }) => (
             <FormItem className="hidden">
               <FormControl>
@@ -96,7 +96,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="h-12">Add</Button>
+        <Button type="submit" className="h-12 w-1/6">Add</Button>
       </form>
     </Form>
   );

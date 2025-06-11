@@ -1,12 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 
+import { Calendar } from "lucide-react";
 import { FormCaloriesAdd } from "@/components/Form-calories-add";
 import ListItem from "@/components/List-item";
 import { NavDate } from "@/components/Nav-date";
 import { Tables } from "@/utils/supabase/database.types";
 import { createClient } from "@/utils/supabase/server";
 import { readDateData } from "@/data/actions";
-import { Calendar } from "lucide-react";
 
 type Record = Tables<"records">;
 
@@ -34,7 +34,7 @@ export default async function PageDate({
 
   if (!data || data.length === 0) {
     return (
-      <main className="flex min-h-screen flex-col items-center p-4 space-y-4">
+      <main className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
         <Card className="w-full">
           <CardContent>
             <div className="flex items-center gap-2">
@@ -57,7 +57,7 @@ export default async function PageDate({
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 space-y-4">
+    <main className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
       <Card className="w-full">
         <CardContent>
           <div className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export default async function PageDate({
         <CardContent>
           <div>
             {data.map((item, index) => {
-              return <ListItem key={index} item={item} />;
+              return <ListItem key={index} item={item} selectedDate={date} />;
             })}
           </div>
         </CardContent>

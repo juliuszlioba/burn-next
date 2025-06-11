@@ -2,6 +2,7 @@
 
 import { addFormSchema } from "@/components/Form-calories-add";
 import { createClient } from "@/utils/supabase/server";
+import { editFormSchema } from "@/components/Form-calories-edit";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { toInt } from "radash";
@@ -23,7 +24,7 @@ export async function createRecord(data: z.infer<typeof addFormSchema>) {
   const dataLoad = {
     title: data.item,
     calories: toInt(data.amount) || 0,
-    created_at: data.created_at.toISOString(),
+    created_at: data.created_at,
   };
 
   const { error: resError } = await supabase.from("records").insert(dataLoad);
@@ -78,9 +79,41 @@ export async function readDateData(date: String) {
   return data || [];
 }
 
-// export async function updateRecord() {
-//   return null;
-// }
+export async function updateRecord(data: z.infer<typeof editFormSchema>) {
+  const supabase = await createClient();
+
+  // DEV
+  console.log(data);
+
+  // User check
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (!user || error) {
+    redirect("/error");
+  }
+
+  const dataLoad = {
+    title: data.item,
+    calories: toInt(data.amount) || 0,
+    created_at: data.created_at,
+  };
+
+  const { error: resError } = await supabase
+    .from("records")
+    .update(dataLoad)
+    .eq("id", toInt(data.id));
+
+  if (resError) {
+    return { data: null, error: resError };
+  }
+
+  revalidatePath("/");
+
+  return { data: { status: "success" }, error: null };
+}
 
 export async function deleteRecord(formData: FormData): Promise<void> {
   const supabase = await createClient();

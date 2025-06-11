@@ -1,6 +1,3 @@
-import { Input } from '@/components/ui/input';
-import { login } from './actions';
-
 import {
   Card,
   CardContent,
@@ -8,8 +5,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { KeyRound } from 'lucide-react';
+import { login } from './actions';
 
 export default function LoginPage() {
   return (
@@ -24,15 +24,13 @@ export default function LoginPage() {
               <CardDescription>Only Admin Login</CardDescription>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <form>
+          <CardContent>
+            <form className="space-y-4">
               <div>
-                <label htmlFor="email">Email:</label>
-                <Input id="email" name="email" type="email" required />
+                <Input id="email" name="email" type="email" placeholder="Email" required />
               </div>
               <div>
-                <label htmlFor="password">Password:</label>
-                <Input id="password" name="password" type="password" required />
+                <Input id="password" name="password" type="password" placeholder="Password" required />
               </div>
               <div className="flex gap-2">
                 <Button formAction={login} className="w-full items-end">
