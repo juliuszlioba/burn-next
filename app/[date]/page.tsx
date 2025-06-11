@@ -6,6 +6,7 @@ import { NavDate } from "@/components/Nav-date";
 import { Tables } from "@/utils/supabase/database.types";
 import { createClient } from "@/utils/supabase/server";
 import { readDateData } from "@/data/actions";
+import { Calendar } from "lucide-react";
 
 type Record = Tables<"records">;
 
@@ -33,8 +34,17 @@ export default async function PageDate({
 
   if (!data || data.length === 0) {
     return (
-      <main className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
-        <h1>{date}</h1>
+      <main className="flex min-h-screen flex-col items-center p-4 space-y-4">
+        <Card className="w-full">
+          <CardContent>
+            <div className="flex items-center gap-2">
+              <div className="bg-background p-2 rounded-full">
+                <Calendar strokeWidth={2} />
+              </div>
+              <h1>{date}</h1>
+            </div>
+          </CardContent>
+        </Card>
         <Card className="w-full text-center">
           <CardContent>
             <div className="text-2xl">No records</div>
@@ -47,11 +57,22 @@ export default async function PageDate({
   }
 
   return (
-    <main className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
-      <h1>{date}</h1>
-      <Card className="w-full text-center">
+    <main className="flex min-h-screen flex-col items-center p-4 space-y-4">
+      <Card className="w-full">
         <CardContent>
-          <div className="text-2xl">{getTotalCalories(data)} kcal</div>
+          <div className="flex items-center gap-2">
+            <div className="bg-background p-2 rounded-full">
+              <Calendar strokeWidth={2} />
+            </div>
+            <h1>{date}</h1>
+          </div>
+        </CardContent>
+      </Card>
+      <Card className="w-full text-center bg-gradient-to-r from-red-500 to-orange-400 p-0.5">
+        <CardContent className="bg-background rounded-sm p-4">
+          <div className="text-2xl font-semibold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
+            {getTotalCalories(data)} kcal
+          </div>
         </CardContent>
       </Card>
       {user && <FormCaloriesAdd selectedDate={date} />}
