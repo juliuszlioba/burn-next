@@ -96,7 +96,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit">Add</Button>
+        <Button type="submit" className="h-12">Add</Button>
       </form>
     </Form>
   );

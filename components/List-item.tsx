@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { Shredder } from "lucide-react";
 import { Tables } from "@/utils/supabase/database.types";
 import { createClient } from "@/utils/supabase/server";
@@ -32,10 +32,9 @@ export default async function ListItem({ item }: { item: Record }) {
         {user && (
           <Dialog>
             <DialogTrigger asChild>
-              <Shredder
-                className="cursor-pointer rounded hover:bg-muted"
-                strokeWidth={1.25}
-              />
+              <Button variant={'ghost'} size={'icon'}>
+                <Shredder strokeWidth={1.25} className="text-neutral-500" />
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>

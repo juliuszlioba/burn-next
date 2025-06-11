@@ -33,7 +33,7 @@ export default async function PageDate({
 
   if (!data || data.length === 0) {
     return (
-      <main className="flex flex-col items-center p-4 space-y-4 max-w-lg mx-auto">
+      <main className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
         <h1>{date}</h1>
         <Card className="w-full text-center">
           <CardContent>
@@ -47,7 +47,7 @@ export default async function PageDate({
   }
 
   return (
-    <main className="flex flex-col items-center p-4 space-y-4 max-w-lg mx-auto">
+    <main className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
       <h1>{date}</h1>
       <Card className="w-full text-center">
         <CardContent>
