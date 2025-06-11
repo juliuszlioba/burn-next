@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Calories Burn',
   description: 'App to track calories burned',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
