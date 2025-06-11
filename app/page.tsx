@@ -24,7 +24,7 @@ export default async function Home() {
 
   if (!data || data.length === 0) {
     return (
-      <main className="flex min-h-screen flex-col items-center p-4 space-y-4">
+      <main className="flex flex-col items-center p-4 space-y-4 max-w-lg mx-auto">
         <Card className="w-full text-center">
           <CardContent>
             <div className="text-2xl">No records</div>
@@ -37,7 +37,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 space-y-4">
+    <main className="flex flex-col items-center p-4 space-y-4 max-w-lg mx-auto">
       <Card className="w-full text-center">
         <CardContent>
           <div className="text-2xl">{getTotalCalories(data)} kcal</div>

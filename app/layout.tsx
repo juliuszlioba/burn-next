@@ -20,15 +20,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        {children}
-        <div className="flex justify-between border-t-2 p-4">
-          <div className="flex gap-1 items-center">
-            <Flame className="stroke-red-500" />
-            <span className="bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
-              Calories Burn
-            </span>
+        <div className="flex flex-col min-h-svh justify-between">
+          {children}
+          <div className="flex justify-between border-t-2 p-4">
+            <div className="flex gap-1 items-center">
+              <Flame className="stroke-red-500" />
+              <span className="bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
+                Calories Burn
+              </span>
+            </div>
+            <WebsiteAuth />
           </div>
-          <WebsiteAuth />
         </div>
       </body>
     </html>

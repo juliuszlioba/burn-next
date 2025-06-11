@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen w-full items-center justify-center">
+    <div className="flex flex-col items-center p-4 space-y-4 max-w-lg mx-auto">
       <form>
         <Card>
           <CardHeader>

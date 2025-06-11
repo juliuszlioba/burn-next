@@ -26,10 +26,9 @@ export default async function ListItem({ item }: { item: Record }) {
   } = await supabase.auth.getUser();
 
   return (
-    <div className="flex gap-2 justify-between border-b last:border-none py-1">
-      <div>{item.title}</div>
-      <div className="flex gap-2">
-        {item.calories}
+    <div className="flex gap-2 justify-between border-b last:border-none py-1 first:pt-0 last:pb-0 items-center">
+      <div className="flex gap-2 items-center">
+        <div>{item.title}</div>
         {user && (
           <Dialog>
             <DialogTrigger asChild>
@@ -60,6 +59,9 @@ export default async function ListItem({ item }: { item: Record }) {
             </DialogContent>
           </Dialog>
         )}
+      </div>
+      <div>
+        {item.calories}
       </div>
     </div>
   );

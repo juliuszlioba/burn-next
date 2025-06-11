@@ -66,7 +66,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="item" {...field} />
+                <Input placeholder="item" className="h-12" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -78,7 +78,7 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
           render={({ field }) => (
             <FormItem className="w-1/3">
               <FormControl>
-                <Input type="number" placeholder="amount" {...field} />
+                <Input type="number" placeholder="amount" className="h-12" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -90,13 +90,13 @@ export function FormCaloriesAdd({ selectedDate }: { selectedDate?: string }) {
           render={({ field }) => (
             <FormItem className="hidden">
               <FormControl>
-                <Input type="hidden" placeholder="created_at" {...field} />
+                <Input type="hidden" placeholder="created_at" className="h-12" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Add</Button>
       </form>
     </Form>
   );
