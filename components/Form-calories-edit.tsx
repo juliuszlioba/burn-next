@@ -15,10 +15,11 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { Shredder, SquarePen } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { SquarePen } from "lucide-react";
+import { deleteRecord } from "@/data/actions";
 import { updateRecord } from "@/data/actions";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -82,15 +83,49 @@ export function FormCaloriesEdit({
       <DialogTrigger>
         <SquarePen
           strokeWidth={1.25}
-          className="text-neutral-500 size-5 hover:text-white"
+          className="text-neutral-800 size-5 hover:text-white"
         />
       </DialogTrigger>
       <DialogContent aria-describedby={undefined}>
         <DialogHeader>
-          <DialogTitle>Update</DialogTitle>
+          <DialogTitle className="text-left flex gap-2">
+            <div>Update or</div>
+            <div className="">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Shredder
+                    strokeWidth={1.25}
+                    className="text-neutral-500 size-5 hover:text-white"
+                  />
+                </DialogTrigger>
+                <DialogContent aria-describedby={undefined}>
+                  <DialogHeader>
+                    <DialogTitle className="text-left">
+                      Are you sure?
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="flex gap-2">
+                    <form>
+                      <input type="hidden" name="id" value={id} />
+                      <Button
+                        variant={"destructive"}
+                        // type="submit"
+                        formAction={deleteRecord}
+                      >
+                        <Shredder /> Delete
+                      </Button>
+                    </form>
+                    <DialogClose asChild autoFocus>
+                      <Button variant={"secondary"}>Cancel</Button>
+                    </DialogClose>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </DialogTitle>
         </DialogHeader>
+
         <div className="flex gap-2 flex-col justify-center">
-          {/* <FormCaloriesEdit id={item.id} title={item.title || ""} calories={item.calories.toString()} selectedDate={selectedDate} /> */}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
