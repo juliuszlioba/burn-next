@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 
+import { Button } from "@/components/ui/button";
 import { FormCaloriesAdd } from "@/components/Form-calories-add";
+import Link from "next/link";
 import ListItem from "@/components/List-item";
 import { NavDate } from "@/components/Nav-date";
 import { createClient } from "@/utils/supabase/server";
@@ -55,7 +57,12 @@ export default async function Home() {
           </div>
         </CardContent>
       </Card>
-      <NavDate selectedDate={new Date().toISOString()} />
+      <div className="flex gap-4">
+        <NavDate selectedDate={new Date().toISOString()} />
+        <Button variant="outline" asChild>
+          <Link href="/chart">Chart</Link>
+        </Button>
+      </div>
     </main>
   );
 }

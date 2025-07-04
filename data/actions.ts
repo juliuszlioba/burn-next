@@ -82,9 +82,6 @@ export async function readDateData(date: String) {
 export async function updateRecord(data: z.infer<typeof editFormSchema>) {
   const supabase = await createClient();
 
-  // DEV
-  console.log(data);
-
   // User check
   const {
     data: { user },
@@ -145,4 +142,82 @@ export async function deleteRecord(formData: FormData): Promise<void> {
   // Clear cache and redirect
   revalidatePath("/");
   redirect(`/`);
+}
+
+export async function readChartData() {
+  const supabase = await createClient();
+
+  const { data } = await supabase
+    .from("totals")
+    .select("*")
+    .order("date", { ascending: true });
+
+  return data || [];
+}
+
+export async function createChartDataForDate(date: string) {
+  const supabase = await createClient();
+
+  // User check
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (!user || userError) {
+    redirect("/error");
+  }
+
+  // Set the targetDate to the start of the day in UTC
+  const startOfDay = new Date(`${date}`);
+  startOfDay.setUTCHours(0, 0, 0, 0);
+
+  // Get the start of the next day in UTC
+  const endOfDay = new Date(startOfDay);
+  endOfDay.setUTCDate(startOfDay.getUTCDate() + 1);
+
+  // Get records
+  const { data, error } = await supabase
+    .from("records")
+    .select("*")
+    .gte("created_at", startOfDay.toISOString()) // Records greater than or equal to today's start
+    .lt("created_at", endOfDay.toISOString()) // Records less than tomorrow's start
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    return { data: null, error: error };
+  }
+
+  // Calculate total calories
+  let totalCalories = 0;
+  for (let i = 0; i < data.length; i++) {
+    totalCalories += data[i].calories;
+  }
+
+  // check for existing record
+  const { data: existingData } = await supabase
+    .from("totals")
+    .select("*")
+    .eq("date", date.toString());
+
+  // if record exists, update it
+  if (existingData && existingData.length > 0) {
+    const { error: resError } = await supabase
+      .from("totals")
+      .update({ calories: totalCalories })
+      .eq("id", existingData[0].id);
+    if (resError) {
+      return { data: null, error: resError };
+    }
+  } else {
+    const { error: resError } = await supabase.from("totals").insert({
+      date,
+      calories: totalCalories,
+    });
+    if (resError) {
+      return { data: null, error: resError };
+    }
+  }
+
+  return { data: { status: "success" }, error: null };
 }

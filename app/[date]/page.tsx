@@ -1,12 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { createChartDataForDate, readDateData } from "@/data/actions";
 
+import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-react";
 import { FormCaloriesAdd } from "@/components/Form-calories-add";
+import Link from "next/link";
 import ListItem from "@/components/List-item";
 import { NavDate } from "@/components/Nav-date";
 import { Tables } from "@/utils/supabase/database.types";
 import { createClient } from "@/utils/supabase/server";
-import { readDateData } from "@/data/actions";
 
 type Record = Tables<"records">;
 
@@ -32,6 +34,12 @@ export default async function PageDate({
     return totalCalories;
   }
 
+  async function createChartData() {
+    "use server";
+    await createChartDataForDate(date);
+    return
+  }
+
   if (!data || data.length === 0) {
     return (
       <main className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
@@ -51,7 +59,12 @@ export default async function PageDate({
           </CardContent>
         </Card>
         {user && <FormCaloriesAdd selectedDate={date} />}
-        <NavDate selectedDate={date} />
+        <div className="flex gap-4">
+          <NavDate selectedDate={new Date().toISOString()} />
+          <Button variant="outline" asChild>
+            <Link href="/chart">Chart</Link>
+          </Button>
+        </div>
       </main>
     );
   }
@@ -85,7 +98,20 @@ export default async function PageDate({
           </div>
         </CardContent>
       </Card>
-      <NavDate selectedDate={date} />
+
+      <div className="flex gap-4">
+        <NavDate selectedDate={new Date().toISOString()} />
+
+        {user && <form action={createChartData}>
+          <Button variant="outline">
+            Add to chart
+          </Button>
+        </form>}
+
+        <Button variant="outline" asChild>
+          <Link href="/chart">Chart</Link>
+        </Button>
+      </div>
     </main>
   );
 }

@@ -55,6 +55,24 @@ export type Database = {
         }
         Relationships: []
       }
+      totals: {
+        Row: {
+          calories: number
+          date: string
+          id: number
+        }
+        Insert: {
+          calories?: number
+          date: string
+          id?: number
+        }
+        Update: {
+          calories?: number
+          date?: string
+          id?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
