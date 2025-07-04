@@ -17,7 +17,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function Chart(data: {
-  data: Database["public"]["Tables"]["days"]["Row"][];
+  data: Database["public"]["Tables"]["totals"]["Row"][];
 }) {
   const chartData = data.data;
 
@@ -32,7 +32,11 @@ export function Chart(data: {
           axisLine={false}
           tickFormatter={(value) => value.slice(5, 10)}
         />
-        <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+
+        <ChartTooltip content={
+        // @ts-ignore
+          <ChartTooltipContent label={"date"} active={false} payload={[]} accessibilityLayer={false} />
+        } />
         <Bar dataKey="calories" fill="var(--color-calories)" radius={4} />
       </BarChart>
     </ChartContainer>
