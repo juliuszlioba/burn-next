@@ -14,10 +14,14 @@ const chartConfig = {
     label: "Calories",
     color: "#ff450a",
   },
-   max: {
-    label: "Goal",
-    color: "#ff330a",
+  min: {
+    label: "Min",
+    color: "#ff450a",
   },
+  max: {
+    label: "Max",
+    color: "#ff220a",
+  }
 } satisfies ChartConfig;
 
 export function Chart(data: {
@@ -33,9 +37,9 @@ export function Chart(data: {
         // @ts-ignore
           <ChartTooltipContent label={"date"} active={false} payload={[]} accessibilityLayer={false} />
         } />
-        
         <Bar dataKey="calories" fill="var(--color-calories)" radius={4} />
-        <ReferenceLine y={1500} stroke="var(--color-max)" strokeWidth={1.25} strokeDasharray="4 3" />
+        <ReferenceLine y={1500} stroke="var(--color-min)" strokeWidth={1.25} strokeDasharray="4 3" />
+        <ReferenceLine y={2000} stroke="var(--color-max)" strokeWidth={1.25} strokeDasharray="4 3" />
       </BarChart>
     </ChartContainer>
   );
