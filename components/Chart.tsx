@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, ReferenceLine } from "recharts";
 import {
   ChartContainer,
   type ChartConfig,
@@ -14,6 +14,10 @@ const chartConfig = {
     label: "Calories",
     color: "#ff450a",
   },
+   max: {
+    label: "Goal",
+    color: "#ff330a",
+  },
 } satisfies ChartConfig;
 
 export function Chart(data: {
@@ -25,19 +29,13 @@ export function Chart(data: {
     <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
       <BarChart accessibilityLayer data={chartData}>
         <CartesianGrid vertical={false} />
-        <XAxis
-          dataKey="date"
-          tickLine={true}
-          tickMargin={10}
-          axisLine={false}
-          tickFormatter={(value) => value.slice(5, 10)}
-        />
-
         <ChartTooltip content={
         // @ts-ignore
           <ChartTooltipContent label={"date"} active={false} payload={[]} accessibilityLayer={false} />
         } />
+        
         <Bar dataKey="calories" fill="var(--color-calories)" radius={4} />
+        <ReferenceLine y={1500} stroke="var(--color-max)" strokeWidth={1.25} strokeDasharray="4 3" />
       </BarChart>
     </ChartContainer>
   );

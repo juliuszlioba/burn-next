@@ -8,17 +8,18 @@ export default async function ChartPage() {
   const data = await readChartData();
 
   return (
-    <main className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
-      <div>
+    <main>
+      <div className="w-full max-w-2xl mx-auto">
         <Chart data={data} />
       </div>
-
-      <div className="flex gap-4">
-        <Button variant="outline" asChild>
-          <Link href="/">Home</Link>
-        </Button>
+    
+      <div className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
+        <div className="flex gap-4">
+          <Button variant="outline" asChild>
+            <Link href="/">Home</Link>
+          </Button>
+        </div>
       </div>
-
     </main>
   )
 }
