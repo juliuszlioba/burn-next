@@ -56,8 +56,8 @@ export default async function Home() {
       <Card className="w-full">
         <CardContent>
           <div>
-            {data.map((item, index) => {
-              return <ListItem key={index} item={item} />;
+            {data.map((item) => {
+              return <ListItem key={item.id} item={item} />;
             })}
           </div>
         </CardContent>

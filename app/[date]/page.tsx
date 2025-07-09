@@ -92,8 +92,8 @@ export default async function PageDate({
       <Card className="w-full">
         <CardContent>
           <div>
-            {data.map((item, index) => {
-              return <ListItem key={index} item={item} selectedDate={date} />;
+            {data.map((item) => {
+              return <ListItem key={item.id} item={item} selectedDate={date} />;
             })}
           </div>
         </CardContent>
