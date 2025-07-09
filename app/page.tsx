@@ -33,7 +33,12 @@ export default async function Home() {
           </CardContent>
         </Card>
         {user && <FormCaloriesAdd />}
-        <NavDate selectedDate={new Date().toISOString()} />
+        <div className="flex gap-4">
+          <NavDate selectedDate={new Date().toISOString()} />
+          <Button variant="outline" asChild>
+            <Link href="/chart">Chart</Link>
+          </Button>
+        </div>
       </main>
     );
   }
