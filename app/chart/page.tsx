@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Chart } from "@/components/Chart";
 import Link from "next/link";
 import { readChartData } from "@/data/actions";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default async function ChartPage() {
 
