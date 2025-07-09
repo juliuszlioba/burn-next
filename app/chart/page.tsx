@@ -49,9 +49,12 @@ export default async function ChartPage() {
   }
 
   return (
-    <main className="space-y-2">
-      <div className="w-full max-w-2xl mx-auto">
-        <Chart data={data} />
+    <main>
+
+      <div className="px-2 pt-6">
+        <div className="w-full max-w-2xl mx-auto">
+          <Chart data={data} />
+        </div>
       </div>
     
       <div className="flex flex-col items-center p-4 space-y-4 max-w-lg w-full mx-auto">
