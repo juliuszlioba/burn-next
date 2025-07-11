@@ -5,7 +5,6 @@ import {
   ChartContainer,
   type ChartConfig,
   ChartTooltip,
-  ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Database } from "@/utils/supabase/database.types";
 
@@ -14,14 +13,18 @@ const chartConfig = {
     label: "Calories",
     color: "#ff450a",
   },
+  date: {
+    label: "Date",
+    color: "#ff450a",
+  },
   min: {
     label: "Min",
-    color: "#ff450a",
+    color: "#ff220a",
   },
   max: {
     label: "Max",
     color: "#ff220a",
-  }
+  },
 } satisfies ChartConfig;
 
 export function Chart(data: {
@@ -33,13 +36,38 @@ export function Chart(data: {
     <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
       <BarChart accessibilityLayer data={chartData}>
         <CartesianGrid vertical={false} />
-        <ChartTooltip content={
-        // @ts-ignore
-          <ChartTooltipContent label={"date"} active={false} payload={[]} accessibilityLayer={false} />
-        } />
+        <ChartTooltip
+          content={({ active, payload }) => {
+            if (active && payload && payload.length) {
+              return (
+                <div className="rounded border bg-background p-2 shadow-sm">
+                  <div className="flex flex-col">
+                    <span className="text-md text-foreground">
+                      {payload[0].payload.date}
+                    </span>
+                    <span className="text-lg text-foreground leading-tight">
+                      {payload[0].value}
+                    </span>
+                  </div>
+                </div>
+              );
+            }
+          }}
+        />
+
         <Bar dataKey="calories" fill="var(--color-calories)" radius={4} />
-        <ReferenceLine y={1500} stroke="var(--color-min)" strokeWidth={1.25} strokeDasharray="4 3" />
-        <ReferenceLine y={2000} stroke="var(--color-max)" strokeWidth={1.25} strokeDasharray="4 3" />
+        <ReferenceLine
+          y={1500}
+          stroke="var(--color-min)"
+          strokeWidth={1.25}
+          strokeDasharray="4 3"
+        />
+        <ReferenceLine
+          y={2000}
+          stroke="var(--color-max)"
+          strokeWidth={1.25}
+          strokeDasharray="4 3"
+        />
       </BarChart>
     </ChartContainer>
   );
